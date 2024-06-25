@@ -17,12 +17,27 @@ const slides = [
 	}
 ]
 
-const bannerImg = document.querySelector('.banner-img');
-const arrowLeft = document.querySelector('.arrow_left');
-const arrowRight = document.querySelector('.arrow_right');
-const dots = document.querySelectorAll('.dot');
-
 let currentIndex = 0;
+
+const bannerImg = document.querySelector('.banner-img');
+
+const arrowLeft = document.querySelector('.arrow_left');
+arrowLeft.addEventListener('click', function () {
+    console.log("arrow_left");
+    currentIndex = (currentIndex - 1);
+    updateCarousel(currentIndex, 'left');
+    updateDots(currentIndex);
+});
+
+const arrowRight = document.querySelector('.arrow_right');
+arrowRight.addEventListener('click', function () {
+    console.log("arrow_right");
+    currentIndex = (currentIndex + 1) ;
+    updateCarousel(currentIndex, 'right');
+    updateDots(currentIndex);
+});
+    
+const dots = document.querySelectorAll('.dot');
 
 function updateDots(index) {
     dots.forEach((dot, i) => {
@@ -41,27 +56,15 @@ function updateCarousel(index, direction) {
         currentIndex = 0;
     }
 
+    console.log(`Clic sur la flèche ${direction}`);
+
     const imagePath = `assets/images/slideshow/${slides[currentIndex].image}`;
     bannerImg.src = imagePath;
     bannerImg.alt = `Slide ${currentIndex + 1}`;
 
     const tagLine = slides[currentIndex].tagLine;
     document.querySelector('p').innerHTML = tagLine;
-
-    console.log(`Clic sur la flèche ${direction}`);
 }
-
-arrowLeft.addEventListener('click', function () {
-    currentIndex = (currentIndex - 1);
-    updateCarousel(currentIndex, 'left');
-    updateDots(currentIndex);
-});
-
-arrowRight.addEventListener('click', function () {
-    currentIndex = (currentIndex + 1) ;
-    updateCarousel(currentIndex, 'right');
-    updateDots(currentIndex);
-});
 
 updateCarousel(currentIndex, 'démarrage');
 updateDots(currentIndex);
